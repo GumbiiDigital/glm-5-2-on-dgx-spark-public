@@ -1,50 +1,27 @@
-# Case Study: Dry Run Is a Separate Evidence Tier
+# Case study: dry run is a separate evidence tier
 
-## Context
+## Actual problem
 
-Serving a large local model involves more than starting a process. The artifact, runtime, roles, lifecycle, and response all need independent verification.
+The private operations kit had to support several serving shapes without turning an operator brief into an unsafe one-line launch. A resolved plan can still fail at model load, distributed membership, request handling, or teardown.
 
-## Problem
+## Source-backed sequence
 
-A dry run can prove that configuration resolves and that a plan is internally consistent. It cannot prove that a model loaded, that distributed participants joined, that requests completed, or that teardown was clean.
+1. The v2.0 manual established the dry-run-first contract.
+2. Runbooks were separated by serving shape and a test matrix was added.
+3. Inventory and environment templates stayed examples; live values remain operator-owned.
+4. Scripts were split into preflight, model-directory, smoke, benchmark, download, and link checks.
+5. Systemd and RouterOS files remained templates requiring manual review.
 
-## What I built
+## Failed hypotheses
 
-The public operations method uses distinct receipts:
+- A valid shell command proves readiness: false.
+- A model path in a template proves the artifact exists: false.
+- A dry-run proves a live distributed launch: false.
 
-- intent records model and runtime versions;
-- inventory contains synthetic roles only;
-- preflight checks required inputs;
-- dry_run resolves the proposed plan;
-- launch is a separate, unclaimed stage;
-- verify defines model, readiness, request, and lifecycle gates; and
-- teardown defines process and partial-artifact checks.
+## Bounded tests and acceptance gates
 
-## Engineering decisions
+The source requires explicit intent, preflight evidence, model identity, readiness/request checks, and teardown evidence. Public validation is limited to links, JSON, and privacy.
 
-- Versions are explicit rather than implied by a moving latest tag.
-- Inventory is data, not hard-coded shell text.
-- Dry-run output cannot be promoted to a live result.
-- Distributed roles use fictional names and documentation-only addresses.
-- Acceptance requires both positive response checks and clean lifecycle checks.
-- Public records omit cache paths and operational endpoints.
+## Result
 
-## Representative artifact
-
-The synthetic serving plan contains a fictional inventory, pinned intent, dry-run state, and verification contract. It has no real command, model path, endpoint, or execution result.
-
-## Evidence available here
-
-- The plan parses as JSON.
-- Every identity is synthetic.
-- The document separates planned and observed states.
-- The publication checker rejects common private-data patterns.
-- CI runs the same checker.
-
-## Lessons
-
-The most important word in a dry-run report is dry. It is useful evidence, but only for plan resolution. Live serving requires a different receipt.
-
-## Limitations
-
-No model artifact, runtime test, distributed launch, response, benchmark, or teardown was executed for this public example.
+The useful result is separation of evidence tiers. The public plan is a contract, not a deployment receipt.
