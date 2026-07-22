@@ -1,0 +1,60 @@
+{
+  "schema_version": "public-example-v1",
+  "synthetic": true,
+  "intent": {
+    "model_family": "GLM 5.2",
+    "model_revision": "pinned-placeholder",
+    "runtime_revision": "pinned-placeholder",
+    "state": "planned"
+  },
+  "inventory": [
+    {
+      "hostname": "model-a.example",
+      "address": "192.0.2.40",
+      "role": "coordinator"
+    },
+    {
+      "hostname": "model-b.example",
+      "address": "192.0.2.41",
+      "role": "participant"
+    }
+  ],
+  "preflight": [
+    {
+      "name": "artifact_provenance",
+      "result": "synthetic_pass"
+    },
+    {
+      "name": "runtime_compatibility",
+      "result": "unknown"
+    },
+    {
+      "name": "inventory_resolution",
+      "result": "synthetic_pass"
+    },
+    {
+      "name": "capacity_plan",
+      "result": "unknown"
+    }
+  ],
+  "dry_run": {
+    "completed": true,
+    "contacts_live_targets": false,
+    "result": "plan_resolved"
+  },
+  "launch": {
+    "state": "not_run"
+  },
+  "verification_contract": [
+    "model_identity",
+    "participant_join",
+    "readiness",
+    "representative_request",
+    "process_lifecycle",
+    "clean_teardown"
+  ],
+  "limitations": [
+    "No model path or endpoint is included.",
+    "No live serving or benchmark result is claimed."
+  ]
+}
