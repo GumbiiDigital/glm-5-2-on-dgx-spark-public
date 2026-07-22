@@ -1,68 +1,46 @@
-# GLM 5.2 on DGX Spark Public
+# GLM 5.2 on DGX Spark
 
-I built this repository as a public-facing operations kit for thinking clearly about local GLM 5.2 serving on DGX Spark systems. The focus is version pinning, synthetic inventory, dry-run validation, distributed-serving design, and reproducible verification.
+I built this operations kit to make local GLM 5.2 serving reviewable before it is run. The private source baseline is c57b65e. It contains the v2.0 manual, several runbook shapes, environment and inventory templates, RouterOS snippets, systemd templates, and validation scripts.
 
 ## What I built
 
-The public method covers:
+1. A dry-run-first operations manual and runbook set.
+2. Explicit model/runtime intent instead of moving latest references.
+3. Inventory, environment, systemd, and RouterOS templates separated from live values.
+4. Preflight, API smoke, benchmark, model-directory, download, and link-validation scripts.
+5. A test matrix covering the documented serving shapes.
+6. Evidence templates that distinguish planned, observed, and unknown results.
 
-- explicit model and runtime version intent;
-- synthetic inventory and role assignment;
-- preflight checks separated from launch;
-- dry-run plan generation;
-- distributed-serving topology concepts;
-- readiness, request, and teardown verification; and
-- evidence receipts that distinguish planned work from observed work.
+## Recorded results
+
+| Observation | Source evidence | Status |
+|---|---|---|
+| Baseline c57b65e | private HEAD | Historical |
+| v2.0 manual and five runbook shapes | source docs/runbooks | Historical inventory |
+| Inventory and environment files are examples | README and `*.example` files | Safety rule |
+| Preflight, smoke, benchmark, download, and model-directory checks are tracked | source scripts | Historical inventory |
+| Test matrix was added in a later commit | source history | Historical process |
 
 ## Why it matters
 
-Local model serving can fail at several boundaries: artifact provenance, runtime compatibility, memory planning, network assumptions, process lifecycle, or response validation. A launch command alone does not prove a usable service.
-
-I want the plan, preflight, launch, verification, and shutdown evidence to be reviewable as separate stages.
+Serving can fail at artifact provenance, runtime compatibility, memory planning, process lifecycle, or request validation. A launch command is not a usable-service receipt.
 
 ## Engineering approach
 
-The operations kit is configuration-first. A synthetic plan identifies model intent, runtime intent, representative roles, validation gates, and rollback. Dry-run output must resolve every input without contacting a live target.
+Plan, preflight, launch, request verification, and teardown are separate. Systemd and RouterOS files are templates for operator review, not automatic apply. Credentials and model paths belong outside the repository.
 
-Distributed serving is accepted only when the intended participants, process lifecycle, model identity, request behavior, and teardown state are all verified. The public examples do not claim that this synthetic plan was executed.
-
-## Synthetic public-safe architecture
-
-The diagram uses fictional systems and documentation-only addresses to show a representative serving flow.
+## Sanitized architecture boundary
 
 See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
-## Representative work and artifacts
-
-- [Case study](docs/CASE-STUDY.md) - separating dry-run validation from live serving claims.
-- [Synthetic serving plan](examples/synthetic-serving-plan.json) - versioned inventory and verification gates.
-- [Publication safety](docs/PUBLICATION-SAFETY.md) - model-operations privacy rules.
-- [Share copy](docs/SHARE.md) - concise public narrative.
-- [Safety checker](scripts/check_publication_safety.py) - repository privacy gate.
-
-## Evidence and lessons
-
-This repository proves that the public plan is structured, synthetic, JSON-valid, documented, and privacy-scanned. It does not prove model quality, throughput, compatibility, or a live deployment.
-
-The main lesson is that dry-run success and live-serving success are different evidence tiers. I keep them separate.
-
 ## Repository map
 
-| Path | Purpose |
-|---|---|
-| README.md | Operations method and limits |
-| docs/CASE-STUDY.md | Dry-run and verification case study |
-| docs/ARCHITECTURE.md | Synthetic Mermaid serving flow |
-| docs/PUBLICATION-SAFETY.md | Publication policy |
-| docs/SHARE.md | Share-ready copy |
-| examples/ | Synthetic serving JSON |
-| scripts/check_publication_safety.py | Privacy and structure checker |
-| .github/workflows/publication-safety.yml | CI gate |
+- [docs/CASE-STUDY.md](docs/CASE-STUDY.md)
+- [docs/SERVING-OPERATIONS-RECORD.md](docs/SERVING-OPERATIONS-RECORD.md)
+- [docs/PUBLICATION-SAFETY.md](docs/PUBLICATION-SAFETY.md)
+- [examples/synthetic-serving-plan.json](examples/synthetic-serving-plan.json)
+- The private source contains runbooks for several serving shapes; this public branch records their evidence boundary rather than publishing live runbooks.
 
-## Publication boundary
+## Evidence rules and limits
 
-This is a public project interface, not an operational deployment repository. I exclude live addresses, hostnames, hardware identities, accounts, local paths, credentials, model cache locations, raw telemetry, service inventories, private topology, equipment maps, and commands targeting real systems. Examples are synthetic and do not reproduce a live environment.
-
-## Limitations
-
-This repository does not include model files, copied manual prose, private inventory, live service configuration, benchmark results, or deployment status. Synthetic commands and plans are not represented as having run on hardware.
+These are historical source-backed observations. No model files, live inventory, credentials, cache paths, deployment status, or benchmark results are included. Dry-run validity does not prove live compatibility.
