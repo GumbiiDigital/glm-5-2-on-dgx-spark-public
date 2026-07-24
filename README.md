@@ -44,3 +44,8 @@ See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 ## Evidence rules and limits
 
 These are historical source-backed observations. No model files, live inventory, credentials, cache paths, deployment status, or benchmark results are included. Dry-run validity does not prove live compatibility.
+
+## Copyright
+
+Copyright (c) 2026 Gumbii Digital. All rights reserved. See
+[COPYRIGHT.md](COPYRIGHT.md) for the publication and reuse terms.
