@@ -45,7 +45,9 @@ See [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 These are historical source-backed observations. No model files, live inventory, credentials, cache paths, deployment status, or benchmark results are included. Dry-run validity does not prove live compatibility.
 
-## Copyright
+## License
 
-Copyright (c) 2026 Gumbii Digital. All rights reserved. See
-[COPYRIGHT.md](COPYRIGHT.md) for the publication and reuse terms.
+Gumbii Digital's original code, documentation, examples, data, diagrams, and
+media are available under the [MIT License](LICENSE). Third-party components,
+assets, product names, and trademarks retain their respective terms; see
+[COPYRIGHT.md](COPYRIGHT.md) for scope.
